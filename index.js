@@ -17,12 +17,27 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// app.use(
+//   cors({
+//     origin: "*",
+//     credentials: true,
+//   })
+// );
+
+/* for refence env keys */ 
+// MONGO="mongodb+srv://jaijeetjassal_db_user:eOE91QjRu7C0X66Q@cluster0.siucanm.mongodb.net/mydb"
+// IMAGE_KIT_ENDPOINT="https://ik.imagekit.io/i2ifdxhcx"
+// IMAGE_KIT_PRIVATE_KEY="private_32cnBgOYKztBkD68agziifaJfwc="
+// IMAGE_KIT_PUBLIC_KEY="public_9NLsdM5tgKWM5N8rdbfz+OGSrHk="
+// CLERK_SECRET_KEY=sk_test_FY5Le30sXVoWo5wGHbBAz2sWm4t8HnJXYioxbFoJwI
+
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
+
 
 app.use(express.json());
 
@@ -37,9 +52,14 @@ const connect = async () => {
 };
 
 // ImageKit setup
+// const imagekit = new ImageKit({
+//   publicKey: "public_9NLsdM5tgKWM5N8rdbfz+OGSrHk=",
+//   privateKey: "private_32cnBgOYKz******************",
+//   urlEndpoint: "https://ik.imagekit.io/i2ifdxhcx",
+// });
 const imagekit = new ImageKit({
-  publicKey: "public_9NLsdM5tgKWM5N8rdbfz+OGSrHk=",
-  privateKey: "private_32cnBgOYKz******************",
+  publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGE_KIT_PRIVATE_KEY,
   urlEndpoint: "https://ik.imagekit.io/i2ifdxhcx",
 });
 
